@@ -64,6 +64,9 @@
                     return $this->username;
                 }
                 public function setmarca($marca){
+                    if(strlen($marca)<3 && strlen($marca)>6){
+                        throw new Exception("La marca non e corretta");
+                    }
                     $this-> marca = $marca;
                 }    
                 
@@ -77,9 +80,9 @@
                 }
             }
             try{
-                $computer1= new Computer("2356","2000$");
+                $computer1= new Computer("9","2000$");
                 $computer1 ->setmodello("a14");
-                $computer1 -> setmarca("Haweii");
+                $computer1 -> setmarca("Haweii44");
                 $computer1 ->printMe();
             }catch(Exception $e){
                 echo $e. "<br><h1>" . $e -> getMessage() . "</h1>";
