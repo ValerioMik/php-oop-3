@@ -37,36 +37,46 @@
                 }
 
                 public function getcodiceUnivoco(){
-                    return $this->username;
+                    return $this->codiceUnivoco;
                 }
                 public function setcodiceUnivoco($codiceUnivoco){
-                    if(strlen($codiceUnivoco)!= 6 && !is_numeric($codiceUnivoco)){
-                        throw new Exception("non hai inserito un codice univoco");
+                    if(strlen($codiceUnivoco)!= 6 || !is_numeric($codiceUnivoco)){
+                        throw new Exception("il codice univoco deve contenere solo 6 cifre");
                     }
                     $this-> codiceUnivoco = $codiceUnivoco;
                 }
 
                 public function getmodello(){
-                    return $this->username;
+                    return $this->modello;
                 }
                 public function setmodello($modello){
+                    if(strlen($modello)<3){
+                        throw new Exception("Il modello non e corretto perchè il campo inserito è troppo corta");
+                    }elseif(strlen($modello)>6){
+                        throw new Exception("Il modello non e corretto perchè il campo inserito è troppo lunga");
+                    }else
                     $this-> modello = $modello;
                 }
 
                 public function getprezzo(){
-                    return $this->username;
+                    return $this->prezzo;
                 }
                 public function setprezzo($prezzo){
+                    if(is_int($prezzo)||$prezzo<0 || $prezzo>2000){
+                        throw new Exception("lo stipendio inserito deve eseere in un campo tra 0 a 2000€");
+                    }
                     $this-> prezzo = $prezzo;
                 }
 
                 public function getmarca(){
-                    return $this->username;
+                    return $this->marca;
                 }
                 public function setmarca($marca){
-                    if(strlen($marca)<3 && strlen($marca)>6){
-                        throw new Exception("La marca non e corretta");
-                    }
+                    if(strlen($marca)<3){
+                        throw new Exception("La marca non e corretta perche troppo corta");
+                    }elseif(strlen($marca)>6){
+                        throw new Exception("La marca non e corretta perche troppo lunga");
+                    }else
                     $this-> marca = $marca;
                 }    
                 
@@ -76,13 +86,13 @@
 
                 public function __toString()
                 {
-                    return $this->marca." /".$this-> modello." : ".$this->prezzo." [".$this->codiceUnivoco."]"; 
+                    return "La marca è: ".$this->marca."<br>"."IL modello è: ".$this-> modello." <br> "." Il prezzo e di: ".$this->prezzo."€"."<br>"."IL codice univoco è: "." [".$this->codiceUnivoco."]"; 
                 }
             }
             try{
-                $computer1= new Computer("9","2000$");
-                $computer1 ->setmodello("a14");
-                $computer1 -> setmarca("Haweii44");
+                $computer1= new Computer("989678","2000");
+                $computer1 ->setmodello("2022");
+                $computer1 -> setmarca("Mac");
                 $computer1 ->printMe();
             }catch(Exception $e){
                 echo $e. "<br><h1>" . $e -> getMessage() . "</h1>";
